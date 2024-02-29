@@ -19,14 +19,14 @@ export default function BgmStreamed() {
   console.log(channelName, page, take);
   useEffect(() => {
     async function fetchStreamed() {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_SERVER_URL}/viewer/bgm/${channelName}?page=${page}&take=${take}`
-      );
-      if (response.status === 200) {
+      try {
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_SERVER_URL}/viewer/bgm/${channelName}?page=${page}&take=${take}`
+        );
         setStreamed(response.data.data.items);
         setTotal(response.data.data.total);
-      } else {
-        console.log(response);
+      } catch (e) {
+        console.log(e);
       }
     }
     fetchStreamed();
